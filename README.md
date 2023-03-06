@@ -1,3 +1,3 @@
-# beb-03-first-02
-beb-03-first-08
-<!-- edit test  -->
+# Team Exodus
+팀장: 김진호
+팀원: 김지환 김영주 이구범
