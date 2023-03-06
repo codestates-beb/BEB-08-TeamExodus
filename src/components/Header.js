@@ -98,7 +98,7 @@ function Header() {
   const { scrollY } = useScroll();
   useEffect(() => {
     scrollY.onChange(() => {
-      if (scrollY.get() > 80) {
+      if (scrollY.get() > 50) {
         headerAnimation.start("scroll");
       } else {
         headerAnimation.start("top");

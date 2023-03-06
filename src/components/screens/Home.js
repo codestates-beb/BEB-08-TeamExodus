@@ -63,16 +63,34 @@ const rowVariants = {
 
 const Lists = styled.div`
   display: grid;
-  margin-top: 1000px;
-  background-color: black;
+  margin-top: 30px;
+  height: 100%;
+  height: auto;
+  background-color: blue;
   grid-template-columns: repeat(5, 1fr);
-
+  gap: 20px;
+  font-size: 40px;
   color: black;
+  margin-bottom: 120px;
+`;
+
+const List = styled.div`
+  background-color: black;
+  height: 250px;
+  width: 1fr;
+`;
+
+const ListTitle = styled.div`
+  margin-top: 600px;
+  font-size: 60px;
+  background-color: pink;
+  font-weight: 600;
 `;
 
 function Home() {
   const [index, setIndex] = useState(0);
   const increaseIndex = () => setIndex((prev) => prev + 1);
+  const nfts = new Array(20).fill(0);
   return (
     <Container onClick={increaseIndex}>
       <Header />
@@ -96,10 +114,11 @@ function Home() {
           </Row>
         </AnimatePresence>
       </Slider>
+      <ListTitle>Trending in Arts</ListTitle>
       <Lists>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => {
-          <Box key={i}>{i}</Box>;
-        })}
+        {nfts.map((i) => (
+          <List key={i}>{i}</List>
+        ))}
       </Lists>
     </Container>
   );
