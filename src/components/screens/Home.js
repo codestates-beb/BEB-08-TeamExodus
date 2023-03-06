@@ -92,13 +92,13 @@ function Home() {
   const increaseIndex = () => setIndex((prev) => prev + 1);
   const nfts = new Array(20).fill(0);
   return (
-    <Container onClick={increaseIndex}>
+    <Container>
       <Header />
-      <WelcomeWords>
+      <WelcomeWords onClick={increaseIndex}>
         <span>Welcome to the 3rd Generation NFT Market</span>
         <span>EXODUS</span>
       </WelcomeWords>
-      <Slider>
+      <Slider onClick={increaseIndex}>
         <AnimatePresence>
           <Row
             variants={rowVariants}

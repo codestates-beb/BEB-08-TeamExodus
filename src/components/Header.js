@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faWallet, faBolt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAnimation, motion, useScroll } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const SHeader = styled(motion.div)`
   z-index: 5;
@@ -93,6 +94,15 @@ const SearchBar = styled.input`
   }
 `;
 
+const LoginBtn = styled.div`
+  background-color: black;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+  padding: 15px 15px;
+  border-radius: 9px;
+`;
+
 function Header() {
   const headerAnimation = useAnimation();
   const { scrollY } = useScroll();
@@ -105,19 +115,26 @@ function Header() {
       }
     });
   }, [scrollY, headerAnimation]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <SHeader variants={navVariants} animate={headerAnimation} initial={"top"}>
       <Wrapper>
         <Column>
-          <LogoIcon>
-            <FontAwesomeIcon
-              icon={faRebel}
-              color="rgba(0,0,0,23)"
-              fontSize="45px"
-            />
-          </LogoIcon>
+          <Link to="/">
+            <LogoIcon>
+              <FontAwesomeIcon
+                icon={faRebel}
+                color="rgba(0,0,0,23)"
+                fontSize="45px"
+              />
+            </LogoIcon>
+          </Link>
+          <Link to="/">
+            <Logo>EXODUS</Logo>
+          </Link>
 
-          <Logo>EXODUS</Logo>
           <Search>
             <SearchBox>
               <SearchBar placeholder="Search NFT..." />
@@ -131,22 +148,40 @@ function Header() {
             </SearchBox>
           </Search>
           <Nav>
-            <Menu>Market</Menu>
-            <Menu>Create</Menu>
+            <Link to="/market">
+              <Menu>Market</Menu>
+            </Link>
+
+            <Link to="/create">
+              <Menu>Create</Menu>
+            </Link>
             <Menu>Drops</Menu>
           </Nav>
         </Column>
-        <Column>
-          <Icon>
-            <FontAwesomeIcon icon={faBolt} />
-          </Icon>
-          <Icon>
-            <FontAwesomeIcon icon={faWallet} />
-          </Icon>
-          <Icon>
-            <FontAwesomeIcon icon={faUser} />
-          </Icon>
-        </Column>
+        {isLoggedIn ? (
+          <Column>
+            <Link to={`/users/:username`}>
+              <Icon>
+                <FontAwesomeIcon icon={faUser} />
+              </Icon>
+            </Link>
+            <Icon>
+              <FontAwesomeIcon icon={faWallet} />
+            </Icon>
+            <Icon>
+              <FontAwesomeIcon icon={faBolt} />
+            </Icon>
+          </Column>
+        ) : (
+          <Column>
+            <Link to={`/connect`}>
+              <LoginBtn>Connect Wallet</LoginBtn>
+            </Link>
+            <Icon>
+              <FontAwesomeIcon icon={faBolt} />
+            </Icon>
+          </Column>
+        )}
       </Wrapper>
     </SHeader>
   );

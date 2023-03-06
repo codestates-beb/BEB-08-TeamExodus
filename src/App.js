@@ -5,6 +5,8 @@ import { ThemeProvider } from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { GlobalStyles, lightTheme } from "./styles";
 import { faRebel } from "@fortawesome/free-brands-svg-icons";
+import Market from "./components/screens/Market";
+import Create from "./components/screens/Create";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path={`/users/:username`} element={<MyPage />}></Route>
+            <Route path="/market" element={<Market />}></Route>
+            <Route path="/create" element={<Create />}></Route>
           </Routes>
         </Router>
       </ThemeProvider>
