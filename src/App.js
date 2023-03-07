@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./components/screens/Home";
 import MyPage from "./components/screens/MyPage";
 import { ThemeProvider } from "styled-components";
@@ -17,15 +17,14 @@ function App() {
           <title>Exodus, the next generation of NFT market</title>
         </Helmet>
         <GlobalStyles />
-        {/* <Header /> */}
-        <Router>
-          <Routes>
-            <Route path="/" element={<Header />}></Route>
-            <Route path={`/users/:username`} element={<MyPage />}></Route>
-            <Route path="/market" element={<Market />}></Route>
-            <Route path="/create" element={<Create />}></Route>
-          </Routes>
-        </Router>
+
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path={`/users/:username`} element={<MyPage />}></Route>
+          <Route path="/market" element={<Market />}></Route>
+          <Route path="/create" element={<Create />}></Route>
+        </Routes>
       </ThemeProvider>
     </HelmetProvider>
   );
