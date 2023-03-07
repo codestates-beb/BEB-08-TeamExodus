@@ -5,7 +5,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faWallet, faBolt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAnimation, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Web3 from "web3";
 
 const SHeader = styled(motion.div)`
@@ -144,8 +144,6 @@ function Header() {
       })
       .catch((e) => console.log(e));
   };
-
-  let navigate = useNavigate();
 
   return (
     <SHeader variants={navVariants} animate={headerAnimation} initial={"top"}>

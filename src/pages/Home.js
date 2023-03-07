@@ -1,4 +1,3 @@
-/* import Header from "../Header"; */
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -91,9 +90,18 @@ function Home() {
   const [index, setIndex] = useState(0);
   const increaseIndex = () => setIndex((prev) => prev + 1);
   const nfts = new Array(20).fill(0);
+  const options = { method: "GET", headers: { accept: "application/json" } };
+
+  fetch(
+    "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=10",
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+
   return (
     <Container>
-      {/* <Header /> */}
       <WelcomeWords onClick={increaseIndex}>
         <span>Welcome to the 3rd Generation NFT Market</span>
         <span>EXODUS</span>
