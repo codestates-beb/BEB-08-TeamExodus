@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../Header";
+/* import Header from "../Header"; */
 import backImageSrc from "../../img/jesus.jpg";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -76,7 +76,7 @@ const RowPic = styled.div`
 function MyPage() {
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <BackImage src={backImageSrc} />
       <ProfileImg />
       <Profile>

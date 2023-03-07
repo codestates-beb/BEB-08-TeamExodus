@@ -1,4 +1,4 @@
-import Header from "../Header";
+/* import Header from "../Header"; */
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -93,7 +93,7 @@ function Home() {
   const nfts = new Array(20).fill(0);
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <WelcomeWords onClick={increaseIndex}>
         <span>Welcome to the 3rd Generation NFT Market</span>
         <span>EXODUS</span>

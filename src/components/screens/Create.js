@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../Header";
+/* import Header from "../Header"; */
 
 const Container = styled.div`
   padding: 50px 200px;
@@ -62,7 +62,7 @@ const Button = styled.div`
 function Create() {
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <FormBox>
         <Title>Create New NFT</Title>
         <InputBox>
