@@ -22,7 +22,7 @@ input {
 }
 
 body {
-    height: 200vh;
+    
     background-color: ${(props) => props.theme.bgColor};
     font-size: 14px;
     font-family:'Open Sans', sans-serif;
