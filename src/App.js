@@ -1,12 +1,19 @@
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import Home from "./components/screens/Home";
-import MyPage from "./components/screens/MyPage";
+import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { GlobalStyles, lightTheme } from "./styles";
-import { faRebel } from "@fortawesome/free-brands-svg-icons";
-import Market from "./components/screens/Market";
-import Create from "./components/screens/Create";
+
+// Header, Footer
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+// Pages
+import Home from "./pages/Home";
+import Create from "./pages/Create";
+import Market from "./pages/Market";
+import MyPage from "./pages/MyPage";
+import Detail from "./pages/Detail";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -16,14 +23,17 @@ function App() {
           <title>Exodus, the next generation of NFT market</title>
         </Helmet>
         <GlobalStyles />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path={`/users/:username`} element={<MyPage />}></Route>
-            <Route path="/market" element={<Market />}></Route>
-            <Route path="/create" element={<Create />}></Route>
-          </Routes>
-        </Router>
+
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path={`/users/:username`} element={<MyPage />} />
+          <Route path="/market" element={<Market />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
       </ThemeProvider>
     </HelmetProvider>
   );

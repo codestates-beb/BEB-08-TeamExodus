@@ -6,6 +6,7 @@ import { faWallet, faBolt, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useAnimation, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Web3 from "web3";
 
 const SHeader = styled(motion.div)`
   z-index: 5;
@@ -94,7 +95,7 @@ const SearchBar = styled.input`
   }
 `;
 
-const LoginBtn = styled.div`
+const WalletBtn = styled.div`
   background-color: black;
   font-weight: 600;
   font-size: 15px;
@@ -117,6 +118,32 @@ function Header() {
   }, [scrollY, headerAnimation]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [web3, setWeb3] = useState();
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      // window.ethereum이 있다면
+      try {
+        const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
+        setWeb3(web);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, []);
+  const [account, setAccount] = useState("");
+  const connectWallet = async () => {
+    await window.ethereum
+      .request({
+        method: "eth_requestAccounts",
+      })
+      .then((res) => {
+        console.log(res);
+        setAccount(res[0]);
+        console.log(account);
+        setIsLoggedIn(true);
+      })
+      .catch((e) => console.log(e));
+  };
 
   return (
     <SHeader variants={navVariants} animate={headerAnimation} initial={"top"}>
@@ -174,9 +201,14 @@ function Header() {
           </Column>
         ) : (
           <Column>
-            <Link to={`/connect`}>
-              <LoginBtn>Connect Wallet</LoginBtn>
-            </Link>
+            <WalletBtn
+              onClick={() => {
+                connectWallet();
+              }}
+            >
+              Connect Wallet
+            </WalletBtn>
+
             <Icon>
               <FontAwesomeIcon icon={faBolt} />
             </Icon>
