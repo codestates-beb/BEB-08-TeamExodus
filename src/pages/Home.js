@@ -121,6 +121,27 @@ function Home() {
     const indexOfFirstNft = indexOfLastNft - nftsPerPage;
     const currentNfts = nfts.slice(indexOfFirstNft, indexOfLastNft);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    async function getAllNFTs() {
+        const baseUrl = "https://api.opensea.io/api/v1";
+        const assetPath = "/assets";
+        const query = "?order_direction=desc&offset=0&limit=50"; // 50개씩 가져오기
+
+        let nfts = [];
+        let nextPage = `${baseUrl}${assetPath}${query}`;
+
+        // while (nextPage) {
+        //     const response = await fetch(nextPage);
+        //     const { assets, next_page } = await response.json();
+        //     nfts = nfts.concat(assets);
+        //     nextPage = next_page;
+        // }
+
+        // return nfts;
+        return await fetch(nextPage);
+    }
+    getAllNFTs().then((nfts) => {
+        console.log("!!: ", nfts);
+    });
     return (
         <Container>
             <WelcomeWords onClick={increaseIndex}>

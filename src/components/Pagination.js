@@ -60,11 +60,8 @@ function Pagination({
     function handleNextButtonClick() {
         if (currentPageRange < Math.ceil(pageNumbers.length / pageSize)) {
             setCurrentPageRange(currentPageRange + 1);
-            console.log(Math.ceil(pageNumbers.length / pageSize));
-            // console.log((currentPageRange - 1) * pageSize + 1);
             setCurrentPage((currentPageRange + 1) * pageSize - (pageSize - 1));
         }
-        console.log(currentPageRange);
     }
 
     function handlePrevButtonClick() {

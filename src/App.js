@@ -14,6 +14,7 @@ import Market from "./pages/Market";
 import MyPage from "./pages/MyPage";
 import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
+import Test from "./pages/Test";
 
 function App() {
     return (
@@ -24,13 +25,14 @@ function App() {
                 </Helmet>
                 <GlobalStyles />
 
-                <Header />
+                {/* <Header /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path={`/users/:username`} element={<MyPage />} />
                     <Route path="/market" element={<Market />} />
                     <Route path="/create" element={<Create />} />
                     <Route path="/detail/:id" element={<Detail />} />
+                    <Route path="/test" element={<Test />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
