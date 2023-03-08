@@ -16,27 +16,27 @@ import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  return (
-    <HelmetProvider>
-      <ThemeProvider theme={lightTheme}>
-        <Helmet>
-          <title>Exodus, the next generation of NFT market</title>
-        </Helmet>
-        <GlobalStyles />
+    return (
+        <HelmetProvider>
+            <ThemeProvider theme={lightTheme}>
+                <Helmet>
+                    <title>Exodus, the next generation of NFT market</title>
+                </Helmet>
+                <GlobalStyles />
 
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path={`/users/:username`} element={<MyPage />} />
-          <Route path="/market" element={<Market />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/detail/:id" element={<Detail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </ThemeProvider>
-    </HelmetProvider>
-  );
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path={`/users/:username`} element={<MyPage />} />
+                    <Route path="/market" element={<Market />} />
+                    <Route path="/create" element={<Create />} />
+                    <Route path="/detail/:id" element={<Detail />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+                <Footer />
+            </ThemeProvider>
+        </HelmetProvider>
+    );
 }
 
 export default App;
