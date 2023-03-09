@@ -81,6 +81,7 @@ function Market() {
   console.log("1");
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sidebarIdx, setSidebarIdx] = useState("1");
 
   useEffect(() => {
     const result = [];
@@ -89,7 +90,7 @@ function Market() {
       headers: { accept: "application/json" },
     };
     fetch(
-      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=16",
+      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=48",
       options
     )
       .then((response) => response.json())
@@ -115,13 +116,14 @@ function Market() {
   return (
     <Container>
       <SidebarCol>
-        {" "}
         <Sidebar>
           <Menu>
             <SubMenu label="NFT Collections">
-              <MenuItem> Drawing & Painting </MenuItem>
-              <MenuItem> Gaming Art </MenuItem>
-              <MenuItem> Digital Art </MenuItem>
+              <MenuItem onClick={setSidebarIdx("1")}>
+                Drawing & Painting
+              </MenuItem>
+              <MenuItem onClick={setSidebarIdx("2")}> Gaming Art </MenuItem>
+              <MenuItem onClick={setSidebarIdx("3")}> Digital Art </MenuItem>
             </SubMenu>
             <MenuItem> Documentation </MenuItem>
             <MenuItem> About Us </MenuItem>

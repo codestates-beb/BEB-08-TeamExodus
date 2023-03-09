@@ -29,8 +29,8 @@ function App() {
             <Route path="/market" element={<Market />} />
             <Route path="/create" element={<Create />} />
             <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/test" element={<Test />} />
           </Route>
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
