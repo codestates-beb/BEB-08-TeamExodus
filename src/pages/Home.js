@@ -136,10 +136,13 @@ function Home() {
                         el.maker_asset_bundle.assets[0];
                     console.log("el: ", el);
                     result.push({ image_url, name, description });
-                    // setLists((prev) => [
-                    //     ...prev,
-                    //     { image_url, name, description },
-                    // ]);
+                    result.push({ image_url, name, description });
+                    result.push({ image_url, name, description });
+                    result.push({ image_url, name, description });
+                    result.push({ image_url, name, description });
+                    result.push({ image_url, name, description });
+                    // openSea tesnet APi에서 제공해주는 데이터 limit50 하드코딩
+
                     setNfts(result);
                     setLoading(false);
                 });
