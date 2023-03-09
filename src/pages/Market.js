@@ -81,8 +81,8 @@ function Market() {
   console.log("1");
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sidebarIdx, setSidebarIdx] = useState("1");
-
+  const [tab, setTab] = useState(0);
+  const [filteredLists, setFilteredLists] = useState([]);
   useEffect(() => {
     const result = [];
     const options = {
@@ -90,7 +90,7 @@ function Market() {
       headers: { accept: "application/json" },
     };
     fetch(
-      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=48",
+      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=50",
       options
     )
       .then((response) => response.json())
@@ -106,24 +106,30 @@ function Market() {
           //     { image_url, name, description },
           // ]);
           setLists(result);
-
+          setFilteredLists(result.slice(0, 16));
           setLoading(false);
         });
       })
       .catch((err) => console.error(err));
   }, []);
 
+  const changeTab = (num) => {
+    setTab(num);
+    setFilteredLists(lists.slice(num * 16, (num + 1) * 16));
+  };
   return (
     <Container>
       <SidebarCol>
+        {" "}
         <Sidebar>
           <Menu>
             <SubMenu label="NFT Collections">
-              <MenuItem onClick={setSidebarIdx("1")}>
-                Drawing & Painting
+              <MenuItem onClick={() => changeTab(0)}>
+                {" "}
+                Drawing & Painting{" "}
               </MenuItem>
-              <MenuItem onClick={setSidebarIdx("2")}> Gaming Art </MenuItem>
-              <MenuItem onClick={setSidebarIdx("3")}> Digital Art </MenuItem>
+              <MenuItem onClick={() => changeTab(1)}> Gaming Art </MenuItem>
+              <MenuItem onClick={() => changeTab(2)}> Digital Art </MenuItem>
             </SubMenu>
             <MenuItem> Documentation </MenuItem>
             <MenuItem> About Us </MenuItem>
@@ -148,7 +154,7 @@ function Market() {
             </LoadingContainer>
           ) : (
             <>
-              {lists?.map((data) => (
+              {filteredLists?.map((data) => (
                 <NftBox>
                   <NftImg src={data?.image_url} />
                   <NftOwner>{data?.owner ? data.owner : `Unnamed`}</NftOwner>

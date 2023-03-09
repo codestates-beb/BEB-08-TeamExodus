@@ -10,10 +10,9 @@ function Test() {
 
   const addNewErc721Token = async () => {
     const tokenContract = await new web3.eth.Contract(erc721abi, newErc721addr);
-
     const name = await tokenContract.methods.name().call();
     const symbol = await tokenContract.methods.symbol().call();
-    /*  // const totalSupply = await tokenContract.methods.totalSupply().call(); */
+    const totalSupply = await tokenContract.methods.TotalSupply().call();
     const ownerOf = await tokenContract.methods.ownerOf(1).call();
     const tokenURI = await tokenContract.methods.tokenURI(1).call();
 
