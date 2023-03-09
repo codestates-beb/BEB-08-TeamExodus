@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { faRebel } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faWallet, faBolt, faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+    faWallet,
+    faBolt,
+    faSearch,
+    faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAnimation, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -119,7 +124,13 @@ function Header() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [web3, setWeb3] = useState();
+    // localStorage로 로그인 여부 판단
     useEffect(() => {
+        const loggedInAccount = localStorage.getItem("isLoggedIn");
+        if (loggedInAccount !== "") {
+            setIsLoggedIn(true);
+            setAccount(loggedInAccount);
+        }
         if (typeof window.ethereum !== "undefined") {
             // window.ethereum이 있다면
             try {
@@ -139,12 +150,17 @@ function Header() {
             .then((res) => {
                 console.log(res);
                 setAccount(res[0]);
-                console.log(account);
                 setIsLoggedIn(true);
+                localStorage.setItem("isLoggedIn", res[0]);
             })
+
             .catch((e) => console.log(e));
     };
-
+    const signOut = () => {
+        setAccount("");
+        setIsLoggedIn(false);
+        localStorage.setItem("isLoggedIn", "");
+    };
     return (
         <SHeader
             variants={navVariants}
@@ -200,6 +216,14 @@ function Header() {
                             <FontAwesomeIcon icon={faWallet} />
                         </Icon>
                         <Icon>
+                            <FontAwesomeIcon
+                                onClick={() => {
+                                    signOut();
+                                }}
+                                icon={faSignOutAlt}
+                            />
+                        </Icon>
+                        <Icon>
                             <FontAwesomeIcon icon={faBolt} />
                         </Icon>
                     </Column>
@@ -212,7 +236,6 @@ function Header() {
                         >
                             Connect Wallet
                         </WalletBtn>
-
                         <Icon>
                             <FontAwesomeIcon icon={faBolt} />
                         </Icon>

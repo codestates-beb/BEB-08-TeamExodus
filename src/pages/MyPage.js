@@ -2,6 +2,8 @@ import styled from "styled-components";
 import backImageSrc from "../img/jesus.jpg";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { Row, RowName, RowPic, RowPics } from "../styles";
 
 const Container = styled.div`
     display: flex;
@@ -46,33 +48,8 @@ const Icon = styled.span`
     font-size: 40px;
 `;
 
-export const Row = styled.div`
-    display: flex;
-    padding: 50px;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-bottom: 40px;
-    font-size: 40px;
-`;
-
-export const RowName = styled.div`
-    font-weight: 600;
-    margin-bottom: 30px;
-`;
-
-export const RowPics = styled.div`
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 10px;
-    height: 250px;
-`;
-
-export const RowPic = styled.div`
-    background-color: black;
-`;
-
 function MyPage() {
+    const [newErc721addr, setNewErc721Addr] = useState();
     return (
         <Container>
             <BackImage src={backImageSrc} />
