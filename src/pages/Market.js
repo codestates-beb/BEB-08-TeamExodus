@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Row, RowName, RowPic, RowPics } from "./MyPage";
+import { Row, RowName, RowPic, RowPics } from "../styles";
 
 const Container = styled.div`
     margin-top: 100px;
@@ -14,10 +14,10 @@ const Img = styled.img`
 `;
 
 function Market() {
-    console.log("1");
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true);
         const result = [];
         const options = {
             method: "GET",
@@ -40,7 +40,7 @@ function Market() {
                     //     { image_url, name, description },
                     // ]);
                     setLists(result);
-                    setLoading((prev) => !prev);
+                    setLoading(false);
                 });
             })
             .catch((err) => console.error(err));

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
+import { RowPic } from "../styles";
 
 const WelcomeWords = styled.div`
     background-color: #00214d;
@@ -66,7 +67,7 @@ const Lists = styled.div`
     margin-top: 30px;
     height: 100%;
     height: auto;
-    background-color: blue;
+    background-color: white;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     font-size: 40px;
@@ -88,10 +89,12 @@ const ListTitle = styled.div`
 `;
 
 function Home() {
+    // 슬라이더
     const sliderItem = new Array(21).fill().map((arr, i) => i + 1);
     const sliderOffset = 4;
     const [index, setIndex] = useState(0);
     const [leaving, setLeaving] = useState(false);
+    const toggleLeaving = () => setLeaving((prev) => !prev);
     const increaseIndex = () => {
         if (leaving) return;
         toggleLeaving();
@@ -102,46 +105,48 @@ function Home() {
         setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     };
 
-    const nfts = new Array(351).fill().map((arr, i) => i + 1);
+    // NFT 페이지
+    // const nfts = new Array(300).fill().map((arr, i) => i + 1);
+    const [nfts, setNfts] = useState([]); //
+    const [loading, setLoading] = useState(false);
     const options = { method: "GET", headers: { accept: "application/json" } };
-    const [currentPage, setCurrentPage] = useState(1);
-    const [nftsPerPage, setNftsPerPage] = useState(10);
-
-    fetch(
-        "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=10",
-        options
-    )
-        .then((response) => response.json())
-        .then((response) => console.log(response))
-        .catch((err) => console.error(err));
-
-    const toggleLeaving = () => setLeaving((prev) => !prev);
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+    const [nftsPerPage, setNftsPerPage] = useState(20); // 페이지당 NFT 수
     // 현재 nft
     const indexOfLastNft = currentPage * nftsPerPage;
     const indexOfFirstNft = indexOfLastNft - nftsPerPage;
     const currentNfts = nfts.slice(indexOfFirstNft, indexOfLastNft);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    async function getAllNFTs() {
-        const baseUrl = "https://api.opensea.io/api/v1";
-        const assetPath = "/assets";
-        const query = "?order_direction=desc&offset=0&limit=50"; // 50개씩 가져오기
 
-        let nfts = [];
-        let nextPage = `${baseUrl}${assetPath}${query}`;
+    useEffect(() => {
+        setLoading(true);
+        const result = [];
+        const options = {
+            method: "GET",
+            headers: { accept: "application/json" },
+        };
+        fetch(
+            "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=50",
+            options
+        )
+            .then((response) => response.json())
+            .then((response) => {
+                response.orders.map((el) => {
+                    const { image_url, name, description } =
+                        el.maker_asset_bundle.assets[0];
+                    console.log("el: ", el);
+                    result.push({ image_url, name, description });
+                    // setLists((prev) => [
+                    //     ...prev,
+                    //     { image_url, name, description },
+                    // ]);
+                    setNfts(result);
+                    setLoading(false);
+                });
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
-        // while (nextPage) {
-        //     const response = await fetch(nextPage);
-        //     const { assets, next_page } = await response.json();
-        //     nfts = nfts.concat(assets);
-        //     nextPage = next_page;
-        // }
-
-        // return nfts;
-        return await fetch(nextPage);
-    }
-    getAllNFTs().then((nfts) => {
-        console.log("!!: ", nfts);
-    });
     return (
         <Container>
             <WelcomeWords onClick={increaseIndex}>
@@ -170,11 +175,19 @@ function Home() {
                 </AnimatePresence>
             </Slider>
             <ListTitle>Trending in Arts</ListTitle>
-            <Lists>
-                {currentNfts.map((i) => (
-                    <List key={i}>{i}</List>
-                ))}
-            </Lists>
+            {loading ? (
+                <div>Loading...........</div>
+            ) : (
+                <Lists>
+                    {currentNfts?.map((i, idx) => (
+                        <RowPic key={idx}>
+                            <img alt="image_url" src={i.image_url} />
+                            <List>{i.name}</List>
+                        </RowPic>
+                    ))}
+                </Lists>
+            )}
+
             <Pagination
                 nftsPerPage={nftsPerPage}
                 totalNfts={nfts.length}
