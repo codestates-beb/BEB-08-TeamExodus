@@ -15,7 +15,7 @@ function Test() {
         );
         const name = await tokenContract.methods.name().call();
         const symbol = await tokenContract.methods.symbol().call();
-        const totalSupply = await tokenContract.methods.totalSupply().call();
+        const totalSupply = await tokenContract.methods.TotalSupply().call();
         const ownerOf = await tokenContract.methods.ownerOf(1).call();
         const tokenURI = await tokenContract.methods.tokenURI(1).call();
 
