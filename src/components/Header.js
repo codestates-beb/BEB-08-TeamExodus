@@ -106,6 +106,9 @@ const WalletBtn = styled.div`
     color: white;
     padding: 15px 15px;
     border-radius: 9px;
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 function Header() {

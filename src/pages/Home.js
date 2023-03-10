@@ -117,8 +117,6 @@ function Home() {
         toggleLeaving();
         const totalSliderItem = sliderItem.length - 1;
         const maxIndex = Math.ceil(totalSliderItem / sliderOffset);
-        console.log("maxIndex: ", maxIndex);
-        console.log("index: ", index);
         setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     };
 
