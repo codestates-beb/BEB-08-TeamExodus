@@ -10,6 +10,7 @@ import styled from "styled-components";
 const FooterWrapper = styled.div`
     background-color: #2d2d32;
     margin-top: 20px;
+    width: 100%;
 `;
 const FooterPadding = styled.div`
     padding: 4rem 4rem;
