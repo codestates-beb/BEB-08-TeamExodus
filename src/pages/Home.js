@@ -257,6 +257,12 @@ function Home() {
                     </PagenationBox>
                 </ListContainer>
             )}
+            {modalVisible && (
+                <Detail
+                    modalData={modalData}
+                    setModalVisible={setModalVisible}
+                />
+            )}
         </Container>
     );
 }
