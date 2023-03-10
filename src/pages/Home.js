@@ -5,6 +5,8 @@ import Pagination from "../components/Pagination";
 import { LoadingContainer, override, RowPic } from "../styles";
 import Detail from "../components/Detail";
 import PulseLoader from "react-spinners/PulseLoader";
+import { NftImg, NftBox, ColLists, NftName, Col } from "./Market";
+
 const WelcomeWords = styled.div`
     background-color: #00214d;
     margin-top: 100px;
@@ -87,6 +89,20 @@ const ListTitle = styled.div`
     font-size: 60px;
     background-color: pink;
     font-weight: 600;
+`;
+
+const ListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+const PagenationBox = styled.div`
+    margin-top: 30px;
+`;
+
+const FixedColLists = styled(ColLists)`
+    grid-template-columns: repeat(5, 1fr);
 `;
 
 function Home() {
@@ -209,28 +225,38 @@ function Home() {
                     />
                 </LoadingContainer>
             ) : (
-                <Lists>
-                    {currentNfts?.map((i, idx) => (
-                        <RowPic key={idx} onClick={() => handleNftClicked(i)}>
-                            <img alt="image_url" src={i.image_url} />
-                            <List>{i.name}</List>
-                        </RowPic>
-                    ))}
-                </Lists>
+                <ListContainer>
+                    <Col
+                        style={{
+                            width: "100%",
+                            margin: 0,
+                            marginTop: "30px",
+                            height: 1800,
+                        }}
+                    >
+                        <FixedColLists>
+                            {currentNfts?.map((i, idx) => (
+                                <NftBox
+                                    key={idx}
+                                    onClick={() => handleNftClicked(i)}
+                                >
+                                    <NftImg src={i.image_url} />
+                                    <NftName>{i.name}</NftName>
+                                </NftBox>
+                            ))}
+                        </FixedColLists>
+                    </Col>
+                    <PagenationBox>
+                        <Pagination
+                            nftsPerPage={nftsPerPage}
+                            totalNfts={nfts.length}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </PagenationBox>
+                </ListContainer>
             )}
-            {modalVisible && (
-                <Detail
-                    modalData={modalData}
-                    setModalVisible={setModalVisible}
-                />
-            )}
-            <Pagination
-                nftsPerPage={nftsPerPage}
-                totalNfts={nfts.length}
-                paginate={paginate}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
         </Container>
     );
 }

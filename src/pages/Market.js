@@ -19,13 +19,13 @@ const SidebarCol = styled.div`
     height: 100%;
 `;
 
-const ColTitle = styled.div`
+export const ColTitle = styled.div`
     font-size: 65px;
     font-weight: 600;
     margin-bottom: 30px;
 `;
 
-const ColLists = styled.div`
+export const ColLists = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
@@ -33,25 +33,25 @@ const ColLists = styled.div`
     height: 250px;
 `;
 
-const NftBox = styled.div`
+export const NftBox = styled.div`
     background-color: antiquewhite;
     display: flex;
     flex-direction: column;
 `;
 
-const NftImg = styled.img`
+export const NftImg = styled.img`
     background-position: center;
     background-size: cover;
     width: 100%;
     height: 400px;
 `;
 
-const NftName = styled.div`
+export const NftName = styled.div`
     font-size: 30px;
     font-weight: 600;
 `;
 
-const NftOwner = styled.div`
+export const NftOwner = styled.div`
     font-size: 20px;
     opacity: 0.8;
 `;

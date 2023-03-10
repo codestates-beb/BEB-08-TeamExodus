@@ -30,6 +30,7 @@ export const lightTheme = {
     bgColor: "#FAFAFA",
     fontColor: "rgb(38, 38, 38)",
 };
+
 export const Row = styled.div`
     display: flex;
     padding: 50px;
