@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
-import { RowPic } from "../styles";
-
+import { LoadingContainer, override, RowPic } from "../styles";
+import Detail from "../components/Detail";
+import PulseLoader from "react-spinners/PulseLoader";
 const WelcomeWords = styled.div`
     background-color: #00214d;
     margin-top: 100px;
@@ -133,10 +134,12 @@ function Home() {
             .then((response) => {
                 let prev = [];
                 response.orders.map((el) => {
+                    const current_price =
+                        el.current_price / 10000000000000000000;
                     const { image_url, name, description } =
                         el.maker_asset_bundle.assets[0];
                     console.log("el: ", el);
-                    prev.push({ image_url, name, description });
+                    prev.push({ image_url, name, description, current_price });
 
                     /* result.push({ image_url, name, description });
                         result.push({ image_url, name, description });
@@ -155,6 +158,15 @@ function Home() {
             })
             .catch((err) => console.error(err));
     }, []);
+
+    // 모달 창
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState("");
+    const handleNftClicked = (nft) => {
+        console.log(nft);
+        setModalVisible(true);
+        setModalData(nft);
+    };
     return (
         <Container>
             <WelcomeWords onClick={increaseIndex}>
@@ -184,18 +196,34 @@ function Home() {
             </Slider>
             <ListTitle>Trending in Arts</ListTitle>
             {loading ? (
-                <div>Loading...........</div>
+                <LoadingContainer>
+                    <PulseLoader
+                        color={"#36d7b7"}
+                        loading={loading}
+                        cssOverride={override}
+                        style={{ marginTop: "150px" }}
+                        size={50}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={1}
+                    />
+                </LoadingContainer>
             ) : (
                 <Lists>
                     {currentNfts?.map((i, idx) => (
-                        <RowPic key={idx}>
+                        <RowPic key={idx} onClick={() => handleNftClicked(i)}>
                             <img alt="image_url" src={i.image_url} />
                             <List>{i.name}</List>
                         </RowPic>
                     ))}
                 </Lists>
             )}
-
+            {modalVisible && (
+                <Detail
+                    modalData={modalData}
+                    setModalVisible={setModalVisible}
+                />
+            )}
             <Pagination
                 nftsPerPage={nftsPerPage}
                 totalNfts={nfts.length}

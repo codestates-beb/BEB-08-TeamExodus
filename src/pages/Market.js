@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import styled from "styled-components";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-
-const override = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "red",
-};
+import Detail from "../components/Detail";
+import { Col, LoadingContainer, override } from "../styles";
 
 const Container = styled.div`
     margin-top: 100px;
@@ -21,23 +17,6 @@ const SidebarCol = styled.div`
     font-weight: 600;
     font-size: 18px;
     height: 100%;
-`;
-
-const Col = styled.div`
-    margin: 30px 100px;
-    width: 80%;
-
-    height: 2000px;
-    display: flex;
-    flex-direction: column;
-`;
-
-const LoadingContainer = styled(Col)`
-    margin-left: 400px;
-    margin-bottom: 500px;
-    width: 100%;
-    display: flex;
-    align-items: center;
 `;
 
 const ColTitle = styled.div`
@@ -96,11 +75,19 @@ function Market() {
             .then((response) => response.json())
             .then((response) => {
                 response.orders.map((el) => {
+                    const current_price =
+                        el.current_price / 10000000000000000000;
                     const { image_url, name, description, owner } =
                         el?.maker_asset_bundle.assets[0].asset_contract;
                     // console.log("el: ", image_url, name, description);
 
-                    result.push({ image_url, name, description, owner });
+                    result.push({
+                        image_url,
+                        name,
+                        description,
+                        owner,
+                        current_price,
+                    });
                     // setLists((prev) => [
                     //     ...prev,
                     //     { image_url, name, description },
@@ -116,6 +103,14 @@ function Market() {
     const changeTab = (num) => {
         setTab(num);
         setFilteredLists(lists.slice(num * 16, (num + 1) * 16));
+    };
+    // 모달 창
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState("");
+    const handleNftClicked = (nft) => {
+        console.log(nft);
+        setModalVisible(true);
+        setModalData(nft);
     };
     return (
         <Container>
@@ -161,7 +156,7 @@ function Market() {
                     ) : (
                         <>
                             {filteredLists?.map((data) => (
-                                <NftBox>
+                                <NftBox onClick={() => handleNftClicked(data)}>
                                     <NftImg src={data?.image_url} />
                                     <NftOwner>
                                         {data?.owner ? data.owner : `Unnamed`}
@@ -173,6 +168,12 @@ function Market() {
                     )}
                 </ColLists>
             </Col>
+            {modalVisible && (
+                <Detail
+                    modalData={modalData}
+                    setModalVisible={setModalVisible}
+                />
+            )}
 
             {/* <Row>
         <RowName>ARTS</RowName>

@@ -32,7 +32,7 @@ const PageNumbersContainer = styled.div`
 const PageNumberButton = styled.button`
     padding: 10px;
     margin: 0 5px;
-    background-color: ${(props) => (props.active ? "blue" : "white")};
+    background-color: ${(props) => (props.active ? "#2E3D53" : "white")};
     color: ${(props) => (props.active ? "white" : "black")};
 `;
 function Pagination({

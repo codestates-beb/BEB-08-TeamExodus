@@ -202,7 +202,6 @@ function Header() {
                         <Link to="/create">
                             <Menu>Create</Menu>
                         </Link>
-                        <Menu>Drops</Menu>
                     </Nav>
                 </Column>
                 {isLoggedIn ? (
@@ -223,9 +222,6 @@ function Header() {
                                 icon={faSignOutAlt}
                             />
                         </Icon>
-                        <Icon>
-                            <FontAwesomeIcon icon={faBolt} />
-                        </Icon>
                     </Column>
                 ) : (
                     <Column>
@@ -236,9 +232,6 @@ function Header() {
                         >
                             Connect Wallet
                         </WalletBtn>
-                        <Icon>
-                            <FontAwesomeIcon icon={faBolt} />
-                        </Icon>
                     </Column>
                 )}
             </Wrapper>

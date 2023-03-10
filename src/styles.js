@@ -2,6 +2,28 @@ import reset from "styled-reset";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
+export const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+};
+
+export const Col = styled.div`
+    margin: 30px 100px;
+    width: 80%;
+
+    height: 2000px;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const LoadingContainer = styled(Col)`
+    margin-left: 400px;
+    margin-bottom: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+`;
 export const lightTheme = {
     accent: "#0095f6",
     borderColor: "rgb(219, 219, 219)",
@@ -58,6 +80,7 @@ body {
 
     
 }
+
 a {
     text-decoration: none;
     color: inherit;
