@@ -120,7 +120,7 @@ function Home() {
 
     useEffect(() => {
         setLoading(true);
-        const result = [];
+        let result = [];
         const options = {
             method: "GET",
             headers: { accept: "application/json" },
@@ -131,25 +131,30 @@ function Home() {
         )
             .then((response) => response.json())
             .then((response) => {
+                let prev = [];
                 response.orders.map((el) => {
                     const { image_url, name, description } =
                         el.maker_asset_bundle.assets[0];
                     console.log("el: ", el);
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    // openSea tesnet APi에서 제공해주는 데이터 limit50 하드코딩
+                    prev.push({ image_url, name, description });
 
-                    setNfts(result);
-                    setLoading(false);
+                    /* result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description }); */
+                    // openSea tesnet APi에서 제공해주는 데이터 limit50 하드코딩
                 });
+                result = result
+                    .concat(prev)
+                    .concat(prev)
+                    .concat(prev)
+                    .concat(prev);
+                setNfts(result);
+                setLoading(false);
             })
             .catch((err) => console.error(err));
     }, []);
-
     return (
         <Container>
             <WelcomeWords onClick={increaseIndex}>
