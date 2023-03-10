@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Web3 from "web3";
 import erc721abi from "../erc721abi";
+
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
 
 const Container = styled.div`
   padding: 50px 200px;
@@ -85,6 +87,7 @@ const AlertBtn = styled.div`
 `;
 
 function Create() {
+
   const [web3, setWeb3] = useState();
   const [minted, setMinted] = useState(true);
 
@@ -171,6 +174,7 @@ function Create() {
           <MintBtn type="submit" value={"Mint"} />
         </FormBox>
       )}
+
     </Container>
   );
 }

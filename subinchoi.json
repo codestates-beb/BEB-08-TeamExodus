@@ -1,0 +1,11 @@
+{
+    "name": "Subin NFT",
+    "description": "채수빈 NFT",
+    "image": "https://image.ytn.co.kr/general/jpg/2022/0525/202205251048115659_d.jpg",
+    "attributes": [
+        {
+            "entertainment": "starship",
+            "name": "채수빈"
+        }
+    ] 
+}
