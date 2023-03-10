@@ -23,7 +23,7 @@ const SidebarCol = styled.div`
   height: 100%;
 `;
 
-const Col = styled.div`
+export const Col = styled.div`
   margin: 30px 100px;
   width: 80%;
 
@@ -40,13 +40,13 @@ const LoadingContainer = styled(Col)`
   align-items: center;
 `;
 
-const ColTitle = styled.div`
+export const ColTitle = styled.div`
   font-size: 65px;
   font-weight: 600;
   margin-bottom: 30px;
 `;
 
-const ColLists = styled.div`
+export const ColLists = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
@@ -54,25 +54,25 @@ const ColLists = styled.div`
   height: 250px;
 `;
 
-const NftBox = styled.div`
+export const NftBox = styled.div`
   background-color: antiquewhite;
   display: flex;
   flex-direction: column;
 `;
 
-const NftImg = styled.img`
+export const NftImg = styled.img`
   background-position: center;
   background-size: cover;
   width: 100%;
   height: 400px;
 `;
 
-const NftName = styled.div`
+export const NftName = styled.div`
   font-size: 30px;
   font-weight: 600;
 `;
 
-const NftOwner = styled.div`
+export const NftOwner = styled.div`
   font-size: 20px;
   opacity: 0.8;
 `;
@@ -81,7 +81,8 @@ function Market() {
   console.log("1");
   const [lists, setLists] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [tab, setTab] = useState(0);
+  const [filteredLists, setFilteredLists] = useState([]);
   useEffect(() => {
     const result = [];
     const options = {
@@ -89,7 +90,7 @@ function Market() {
       headers: { accept: "application/json" },
     };
     fetch(
-      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=16",
+      "https://testnets-api.opensea.io/v2/orders/goerli/seaport/listings?limit=50",
       options
     )
       .then((response) => response.json())
@@ -105,13 +106,17 @@ function Market() {
           //     { image_url, name, description },
           // ]);
           setLists(result);
-
+          setFilteredLists(result.slice(0, 16));
           setLoading(false);
         });
       })
       .catch((err) => console.error(err));
   }, []);
 
+  const changeTab = (num) => {
+    setTab(num);
+    setFilteredLists(lists.slice(num * 16, (num + 1) * 16));
+  };
   return (
     <Container>
       <SidebarCol>
@@ -119,9 +124,12 @@ function Market() {
         <Sidebar>
           <Menu>
             <SubMenu label="NFT Collections">
-              <MenuItem> Drawing & Painting </MenuItem>
-              <MenuItem> Gaming Art </MenuItem>
-              <MenuItem> Digital Art </MenuItem>
+              <MenuItem onClick={() => changeTab(0)}>
+                {" "}
+                Drawing & Painting{" "}
+              </MenuItem>
+              <MenuItem onClick={() => changeTab(1)}> Gaming Art </MenuItem>
+              <MenuItem onClick={() => changeTab(2)}> Digital Art </MenuItem>
             </SubMenu>
             <MenuItem> Documentation </MenuItem>
             <MenuItem> About Us </MenuItem>
@@ -146,7 +154,7 @@ function Market() {
             </LoadingContainer>
           ) : (
             <>
-              {lists?.map((data) => (
+              {filteredLists?.map((data) => (
                 <NftBox>
                   <NftImg src={data?.image_url} />
                   <NftOwner>{data?.owner ? data.owner : `Unnamed`}</NftOwner>
