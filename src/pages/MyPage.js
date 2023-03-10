@@ -2,8 +2,10 @@ import styled from "styled-components";
 import backImageSrc from "../img/jesus.jpg";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, RowName, RowPic, RowPics } from "../styles";
+import Web3 from "web3";
+import erc721abi from "../erc721abi";
 
 const Container = styled.div`
     display: flex;
@@ -49,13 +51,70 @@ const Icon = styled.span`
 `;
 
 function MyPage() {
-    const [newErc721addr, setNewErc721Addr] = useState();
+    const [web3, setWeb3] = useState(new Web3(window.ethereum));
+    const [nftList, setNftList] = useState([]);
+    let contractAddr = "0xc08F3536a11A72bcD25CbBc25192C4981C4E3E65";
+    const userAddr = localStorage.getItem("isLoggedIn");
+
+    useEffect(() => {
+        if (typeof window.ethereum !== "undefined") {
+            // window.ethereum이 있다면
+            try {
+                const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
+                setWeb3(web);
+                console.log("set web ", web3);
+
+                getNftsByUser();
+                console.log("why~");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }, []);
+
+    const getNftsByUser = async () => {
+        console.log("hi");
+        const tokenContract = await new web3.eth.Contract(
+            erc721abi,
+            contractAddr
+        );
+        console.log("tlqkds");
+        console.log(tokenContract);
+        console.log("hi");
+        console.log("Contract", tokenContract);
+
+        const totalSupply = await tokenContract.methods.TotalSupply().call();
+        console.log("totalSupply", totalSupply);
+        let temp = [];
+
+        for (let i = 1; i <= totalSupply; i++) {
+            const nftinfo = await tokenContract.methods
+                .getDescription(i)
+                .call();
+            temp.push(nftinfo);
+
+            /*         if(userAddr == getIssuer) {
+            const tokenURI = await tokenContract.methods.tokenURI(i).call();
+            const tokenURI = await tokenContract.methods.tokenURI(i).call();
+
+
+        } */
+        }
+        console.log("제발 왜");
+        setNftList(temp);
+        console.log("nftList", nftList);
+    };
+
     return (
         <Container>
             <BackImage src={backImageSrc} />
             <ProfileImg />
             <Profile>
-                <ProfileName>Young Joo</ProfileName>
+                <ProfileName>
+                    {localStorage.getItem("isLoggedIn") == ""
+                        ? ""
+                        : localStorage.getItem("isLoggedIn")}
+                </ProfileName>
                 <div>
                     <Icon>
                         <FontAwesomeIcon icon={faLocationDot} />

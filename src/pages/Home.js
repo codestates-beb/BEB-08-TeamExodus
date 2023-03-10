@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
-import { LoadingContainer, override, RowPic } from "../styles";
+import { Col, LoadingContainer, override, RowPic } from "../styles";
 import Detail from "../components/Detail";
 import PulseLoader from "react-spinners/PulseLoader";
-import { NftImg, NftBox, ColLists, NftName, Col } from "./Market";
+import { NftImg, NftBox, ColLists, NftName } from "./Market";
 
 const WelcomeWords = styled.div`
     background-color: #00214d;
@@ -205,7 +205,7 @@ function Home() {
                                 sliderOffset * index + sliderOffset
                             )
                             .map((i) => (
-                                <Box key={i}>{i}</Box>
+                                <Box key={i}>{}</Box>
                             ))}
                     </Row>
                 </AnimatePresence>

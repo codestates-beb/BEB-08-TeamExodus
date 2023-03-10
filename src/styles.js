@@ -51,9 +51,6 @@ export const RowPics = styled.div`
     transition: transform 0.3s ease-in-out;
     gap: 10px;
     height: 250px;
-    &:hover {
-        transform: scale(1.1);
-    }
 `;
 
 export const RowPic = styled.div`

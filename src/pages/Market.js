@@ -34,9 +34,14 @@ export const ColLists = styled.div`
 `;
 
 export const NftBox = styled.div`
-    background-color: antiquewhite;
     display: flex;
     flex-direction: column;
+    border-radius: 10%;
+    box-shadow: 2px 3px 15px -5px;
+    :hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
 `;
 
 export const NftImg = styled.img`
@@ -44,16 +49,27 @@ export const NftImg = styled.img`
     background-size: cover;
     width: 100%;
     height: 400px;
+    border-radius: 10%;
+    border: 3px solid white;
 `;
 
 export const NftName = styled.div`
     font-size: 30px;
     font-weight: 600;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    border-radius: 30%;
+    max-width: 19ch;
+    overflow: hidden;
+    white-space: nowrap;
 `;
 
 export const NftOwner = styled.div`
     font-size: 20px;
     opacity: 0.8;
+    text-align: center;
+    background-color: white;
 `;
 
 function Market() {
