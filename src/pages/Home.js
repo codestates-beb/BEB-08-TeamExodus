@@ -115,8 +115,6 @@ function Home() {
     toggleLeaving();
     const totalSliderItem = sliderItem.length - 1;
     const maxIndex = Math.ceil(totalSliderItem / sliderOffset);
-    console.log("maxIndex: ", maxIndex);
-    console.log("index: ", index);
     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
 
@@ -150,7 +148,7 @@ function Home() {
         response.orders.map((el) => {
           const { image_url, name, description } =
             el.maker_asset_bundle.assets[0];
-          console.log("el: ", el);
+
           prev.push({ image_url, name, description });
 
           /* result.push({ image_url, name, description });
