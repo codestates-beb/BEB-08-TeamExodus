@@ -19,12 +19,12 @@ function Test() {
         const ownerOf = await tokenContract.methods.ownerOf(1).call();
         const tokenURI = await tokenContract.methods.tokenURI(1).call();
 
-        console.log("tokenContract: ", tokenContract);
-        console.log("ownerOf: ", ownerOf);
-        console.log("name: ", name);
-        console.log("symbol: ", symbol);
-        console.log("tokenURI: ", tokenURI);
-        console.log("totalSupply: ", totalSupply);
+        // console.log("tokenContract: ", tokenContract);
+        // console.log("ownerOf: ", ownerOf);
+        // console.log("name: ", name);
+        // console.log("symbol: ", symbol);
+        // console.log("tokenURI: ", tokenURI);
+        // console.log("totalSupply: ", totalSupply);
     };
     const connectWallet = async () => {
         let accounts = await window.ethereum.request({
@@ -33,6 +33,7 @@ function Test() {
 
         setAccount(accounts[0]);
     };
+
     useEffect(() => {
         if (typeof window.ethereum !== "undefined") {
             // window.ethereum이 있다면

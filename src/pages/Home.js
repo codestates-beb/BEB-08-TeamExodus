@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
-import { RowPic } from "../styles";
+import { Col, LoadingContainer, override } from "../styles";
+import Detail from "../components/Detail";
+import PulseLoader from "react-spinners/PulseLoader";
+import { NftImg, NftBox, ColLists, NftName } from "./Market";
 
 const WelcomeWords = styled.div`
-    background-color: #00214d;
+    // background-color: #00214d;
+    // background-color: #202020;
     margin-top: 100px;
     padding: 30px 30px;
     display: flex;
@@ -82,10 +86,43 @@ const List = styled.div`
 `;
 
 const ListTitle = styled.div`
-    margin-top: 600px;
+    margin-top: 250px;
     font-size: 60px;
-    background-color: pink;
+    margin-left: 20px;
+    margin-right: 20px;
     font-weight: 600;
+`;
+
+const ListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 30px;
+    margin-right: 30px;
+`;
+
+const PagenationBox = styled.div`
+    margin-top: 60px;
+    margin-bottom: 50px;
+`;
+
+const FixedColLists = styled(ColLists)`
+    grid-template-columns: repeat(5, 1fr);
+`;
+const Wallpaper = styled.div`
+    width: 100%;
+    height: 1000px;
+    padding: 30px;
+    background: linear-gradient(black, white);
+    font-color: white;
+`;
+const ImageContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Animated_Wallpaper_Windows_10_-_Wallpaper_Engine.gif/1200px-Animated_Wallpaper_Windows_10_-_Wallpaper_Engine.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 40px;
 `;
 
 function Home() {
@@ -100,8 +137,6 @@ function Home() {
         toggleLeaving();
         const totalSliderItem = sliderItem.length - 1;
         const maxIndex = Math.ceil(totalSliderItem / sliderOffset);
-        console.log("maxIndex: ", maxIndex);
-        console.log("index: ", index);
         setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     };
 
@@ -120,7 +155,7 @@ function Home() {
 
     useEffect(() => {
         setLoading(true);
-        const result = [];
+        let result = [];
         const options = {
             method: "GET",
             headers: { accept: "application/json" },
@@ -131,32 +166,50 @@ function Home() {
         )
             .then((response) => response.json())
             .then((response) => {
+                let prev = [];
                 response.orders.map((el) => {
+                    const current_price =
+                        el.current_price / 10000000000000000000;
                     const { image_url, name, description } =
                         el.maker_asset_bundle.assets[0];
-                    console.log("el: ", el);
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    result.push({ image_url, name, description });
-                    // openSea tesnet APi에서 제공해주는 데이터 limit50 하드코딩
+                    prev.push({ image_url, name, description, current_price });
 
-                    setNfts(result);
-                    setLoading(false);
+                    /* result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description });
+                        result.push({ image_url, name, description }); */
+                    // openSea tesnet APi에서 제공해주는 데이터 limit50 하드코딩
                 });
+                result = result
+                    .concat(prev)
+                    .concat(prev)
+                    .concat(prev)
+                    .concat(prev);
+                setNfts(result);
+                setLoading(false);
             })
             .catch((err) => console.error(err));
     }, []);
 
+    // 모달 창
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState("");
+    const handleNftClicked = (nft) => {
+        setModalVisible(true);
+        setModalData(nft);
+    };
     return (
         <Container>
-            <WelcomeWords onClick={increaseIndex}>
-                <span>Welcome to the 3rd Generation NFT Market</span>
-                <span>EXODUS</span>
-            </WelcomeWords>
-            <Slider onClick={increaseIndex}>
+            <Wallpaper>
+                <WelcomeWords>
+                    <span>Welcome to the 3rd Generation NFT Market</span>
+                    <span>EXODUS</span>
+                </WelcomeWords>
+                <ImageContainer />
+            </Wallpaper>
+            aaaaaaaaaaaaaaaaaaaa
+            {/* <Slider onClick={increaseIndex}>
                 <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                     <Row
                         variants={rowVariants}
@@ -172,32 +225,64 @@ function Home() {
                                 sliderOffset * index + sliderOffset
                             )
                             .map((i) => (
-                                <Box key={i}>{i}</Box>
+                                <Box key={i}>{}</Box>
                             ))}
                     </Row>
                 </AnimatePresence>
-            </Slider>
+            </Slider> */}
             <ListTitle>Trending in Arts</ListTitle>
             {loading ? (
-                <div>Loading...........</div>
+                <LoadingContainer>
+                    <PulseLoader
+                        color={"#36d7b7"}
+                        loading={loading}
+                        cssOverride={override}
+                        style={{ marginTop: "150px" }}
+                        size={50}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={1}
+                    />
+                </LoadingContainer>
             ) : (
-                <Lists>
-                    {currentNfts?.map((i, idx) => (
-                        <RowPic key={idx}>
-                            <img alt="image_url" src={i.image_url} />
-                            <List>{i.name}</List>
-                        </RowPic>
-                    ))}
-                </Lists>
+                <ListContainer>
+                    <Col
+                        style={{
+                            width: "100%",
+                            margin: 0,
+                            marginTop: "30px",
+                            height: 1800,
+                        }}
+                    >
+                        <FixedColLists>
+                            {currentNfts?.map((i, idx) => (
+                                <NftBox
+                                    key={idx}
+                                    onClick={() => handleNftClicked(i)}
+                                >
+                                    <NftImg src={i.image_url} />
+                                    <NftName>{i.name}</NftName>
+                                </NftBox>
+                            ))}
+                        </FixedColLists>
+                    </Col>
+                    <PagenationBox>
+                        <Pagination
+                            nftsPerPage={nftsPerPage}
+                            totalNfts={nfts.length}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </PagenationBox>
+                </ListContainer>
             )}
-
-            <Pagination
-                nftsPerPage={nftsPerPage}
-                totalNfts={nfts.length}
-                paginate={paginate}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
+            {modalVisible && (
+                <Detail
+                    modalData={modalData}
+                    setModalVisible={setModalVisible}
+                />
+            )}
         </Container>
     );
 }

@@ -55,63 +55,6 @@ let erc721abi = [
         type: "event",
     },
     {
-        inputs: [
-            {
-                internalType: "address",
-                name: "to",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
-        name: "approve",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "recipient",
-                type: "address",
-            },
-            {
-                internalType: "string",
-                name: "tokenURI",
-                type: "string",
-            },
-            {
-                internalType: "string",
-                name: "_title",
-                type: "string",
-            },
-            {
-                internalType: "string",
-                name: "_artist",
-                type: "string",
-            },
-            {
-                internalType: "string",
-                name: "_description",
-                type: "string",
-            },
-        ],
-        name: "mintNFT",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "",
-                type: "uint256",
-            },
-        ],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
         anonymous: false,
         inputs: [
             {
@@ -129,82 +72,6 @@ let erc721abi = [
         ],
         name: "OwnershipTransferred",
         type: "event",
-    },
-    {
-        inputs: [],
-        name: "renounceOwnership",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "from",
-                type: "address",
-            },
-            {
-                internalType: "address",
-                name: "to",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
-        name: "safeTransferFrom",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "from",
-                type: "address",
-            },
-            {
-                internalType: "address",
-                name: "to",
-                type: "address",
-            },
-            {
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-            {
-                internalType: "bytes",
-                name: "data",
-                type: "bytes",
-            },
-        ],
-        name: "safeTransferFrom",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "operator",
-                type: "address",
-            },
-            {
-                internalType: "bool",
-                name: "approved",
-                type: "bool",
-            },
-        ],
-        name: "setApprovalForAll",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
     },
     {
         anonymous: false,
@@ -232,12 +99,20 @@ let erc721abi = [
         type: "event",
     },
     {
-        inputs: [
+        inputs: [],
+        name: "TotalSupply",
+        outputs: [
             {
-                internalType: "address",
-                name: "from",
-                type: "address",
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
             },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
             {
                 internalType: "address",
                 name: "to",
@@ -249,20 +124,7 @@ let erc721abi = [
                 type: "uint256",
             },
         ],
-        name: "transferFrom",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "newOwner",
-                type: "address",
-            },
-        ],
-        name: "transferOwnership",
+        name: "approve",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
@@ -406,6 +268,45 @@ let erc721abi = [
         type: "function",
     },
     {
+        inputs: [
+            {
+                internalType: "address",
+                name: "recipient",
+                type: "address",
+            },
+            {
+                internalType: "string",
+                name: "tokenURI",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "_title",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "_artist",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "_description",
+                type: "string",
+            },
+        ],
+        name: "mintNFT",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
         inputs: [],
         name: "name",
         outputs: [
@@ -448,6 +349,11 @@ let erc721abi = [
                 name: "issuer",
                 type: "address",
             },
+            {
+                internalType: "string",
+                name: "tokenURI",
+                type: "string",
+            },
         ],
         stateMutability: "view",
         type: "function",
@@ -482,6 +388,82 @@ let erc721abi = [
             },
         ],
         stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "renounceOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "from",
+                type: "address",
+            },
+            {
+                internalType: "address",
+                name: "to",
+                type: "address",
+            },
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "safeTransferFrom",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "from",
+                type: "address",
+            },
+            {
+                internalType: "address",
+                name: "to",
+                type: "address",
+            },
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+            {
+                internalType: "bytes",
+                name: "data",
+                type: "bytes",
+            },
+        ],
+        name: "safeTransferFrom",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "operator",
+                type: "address",
+            },
+            {
+                internalType: "bool",
+                name: "approved",
+                type: "bool",
+            },
+        ],
+        name: "setApprovalForAll",
+        outputs: [],
+        stateMutability: "nonpayable",
         type: "function",
     },
     {
@@ -536,18 +518,40 @@ let erc721abi = [
         type: "function",
     },
     {
-        inputs: [],
-        name: "TotalSupply",
-        outputs: [
+        inputs: [
+            {
+                internalType: "address",
+                name: "from",
+                type: "address",
+            },
+            {
+                internalType: "address",
+                name: "to",
+                type: "address",
+            },
             {
                 internalType: "uint256",
-                name: "",
+                name: "tokenId",
                 type: "uint256",
             },
         ],
-        stateMutability: "view",
+        name: "transferFrom",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "newOwner",
+                type: "address",
+            },
+        ],
+        name: "transferOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
         type: "function",
     },
 ];
-
 export default erc721abi;
