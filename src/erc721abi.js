@@ -349,6 +349,11 @@ let erc721abi = [
         name: "issuer",
         type: "address",
       },
+      {
+        internalType: "string",
+        name: "tokenURI",
+        type: "string",
+      },
     ],
     stateMutability: "view",
     type: "function",
