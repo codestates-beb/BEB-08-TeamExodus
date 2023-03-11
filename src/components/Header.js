@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { faRebel } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -11,12 +11,13 @@ import { useAnimation, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Web3 from "web3";
+import { darkTheme, GlobalStyles, lightTheme } from "../styles";
 
 const SHeader = styled(motion.div)`
     z-index: 5;
     width: 100%;
     padding: 0px 40px;
-    border-bottom: 1px solid ${(props) => props.theme.borderColor};
+    // border-bottom: 1px solid ${(props) => props.theme.borderColor};
     position: fixed;
     top: 0;
     display: flex;
@@ -60,17 +61,18 @@ const LogoIcon = styled(Logo)`
 const Icon = styled.span`
     margin-left: 25px;
     font-size: 25px;
+    :hover {
+        cursor: pointer;
+    }
 `;
 
 const Search = styled.div`
     background-color: #eae9ed;
     display: flex;
-
     border-radius: 10px;
     margin-left: 25px;
     width: 300px;
     height: 30px;
-
     justify-content: space-between;
     align-items: center;
 `;
@@ -100,7 +102,7 @@ const SearchBar = styled.input`
 `;
 
 const WalletBtn = styled.div`
-    background-color: black;
+    // background-color: black;
     font-weight: 600;
     font-size: 15px;
     color: white;
@@ -113,13 +115,17 @@ const WalletBtn = styled.div`
 
 function Header() {
     const headerAnimation = useAnimation();
+    const [darkMode, setDarkMode] = useState(true);
+
     const { scrollY } = useScroll();
     useEffect(() => {
         scrollY.onChange(() => {
             if (scrollY.get() > 50) {
                 headerAnimation.start("scroll");
+                setDarkMode(false);
             } else {
                 headerAnimation.start("top");
+                setDarkMode(true);
             }
         });
     }, [scrollY, headerAnimation]);
@@ -150,7 +156,7 @@ function Header() {
                 method: "eth_requestAccounts",
             })
             .then((res) => {
-                console.log(res);
+                console.log("res: ", res);
                 setAccount(res[0]);
                 setIsLoggedIn(true);
                 localStorage.setItem("isLoggedIn", res[0]);
@@ -164,80 +170,88 @@ function Header() {
         localStorage.setItem("isLoggedIn", "");
     };
     return (
-        <SHeader
-            variants={navVariants}
-            animate={headerAnimation}
-            initial={"top"}
-        >
-            <Wrapper>
-                <Column>
-                    <Link to="/">
-                        <LogoIcon>
-                            <FontAwesomeIcon
-                                icon={faRebel}
-                                color="rgba(0,0,0,23)"
-                                fontSize="45px"
-                            />
-                        </LogoIcon>
-                    </Link>
-                    <Link to="">
-                        <Logo>EXODUS</Logo>
-                    </Link>
-
-                    <Search>
-                        <SearchBox>
-                            <SearchBar placeholder="Search NFT..." />
-                        </SearchBox>
-                        <SearchBox margin-right="10px">
-                            <FontAwesomeIcon
-                                icon={faSearch}
-                                fontSize="15px"
-                                margin-right="10px"
-                            />
-                        </SearchBox>
-                    </Search>
-                    <Nav>
-                        <Link to="/market">
-                            <Menu>Market</Menu>
-                        </Link>
-
-                        <Link to="/create">
-                            <Menu>Create</Menu>
-                        </Link>
-                    </Nav>
-                </Column>
-                {isLoggedIn ? (
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+            <GlobalStyles />
+            <SHeader
+                variants={navVariants}
+                animate={headerAnimation}
+                initial={"top"}
+            >
+                <Wrapper>
                     <Column>
-                        <Link to={`/users/:username`}>
+                        <Link to="/">
+                            <LogoIcon>
+                                <FontAwesomeIcon
+                                    icon={faRebel}
+                                    color={
+                                        darkMode
+                                            ? "rgba(225,225,225,23)"
+                                            : "rgba(0,0,0,23)"
+                                    }
+                                    fontSize="45px"
+                                />
+                            </LogoIcon>
+                        </Link>
+                        <Link to="">
+                            <Logo>EXODUS</Logo>
+                        </Link>
+
+                        <Search>
+                            <SearchBox>
+                                <SearchBar placeholder="Search NFT..." />
+                            </SearchBox>
+                            <SearchBox margin-right="10px">
+                                <FontAwesomeIcon
+                                    icon={faSearch}
+                                    fontSize="15px"
+                                    margin-right="10px"
+                                    color="black"
+                                />
+                            </SearchBox>
+                        </Search>
+                        <Nav>
+                            <Link to="/market">
+                                <Menu>Market</Menu>
+                            </Link>
+
+                            <Link to="/create">
+                                <Menu>Create</Menu>
+                            </Link>
+                        </Nav>
+                    </Column>
+                    {isLoggedIn ? (
+                        <Column>
+                            <Link to={`/users/:username`}>
+                                <Icon>
+                                    <FontAwesomeIcon icon={faUser} />
+                                </Icon>
+                            </Link>
                             <Icon>
-                                <FontAwesomeIcon icon={faUser} />
+                                <FontAwesomeIcon icon={faWallet} />
                             </Icon>
-                        </Link>
-                        <Icon>
-                            <FontAwesomeIcon icon={faWallet} />
-                        </Icon>
-                        <Icon>
-                            <FontAwesomeIcon
+                            <Icon>
+                                <FontAwesomeIcon
+                                    onClick={() => {
+                                        signOut();
+                                    }}
+                                    icon={faSignOutAlt}
+                                />
+                            </Icon>
+                        </Column>
+                    ) : (
+                        <Column>
+                            <WalletBtn
                                 onClick={() => {
-                                    signOut();
+                                    connectWallet();
                                 }}
-                                icon={faSignOutAlt}
-                            />
-                        </Icon>
-                    </Column>
-                ) : (
-                    <Column>
-                        <WalletBtn
-                            onClick={() => {
-                                connectWallet();
-                            }}
-                        >
-                            Connect Wallet
-                        </WalletBtn>
-                    </Column>
-                )}
-            </Wrapper>
-        </SHeader>
+                            >
+                                Connect Wallet
+                            </WalletBtn>
+                        </Column>
+                    )}
+                </Wrapper>
+            </SHeader>
+        </ThemeProvider>
     );
 }
 

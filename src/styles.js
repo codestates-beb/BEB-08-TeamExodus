@@ -30,6 +30,12 @@ export const lightTheme = {
     bgColor: "#FAFAFA",
     fontColor: "rgb(38, 38, 38)",
 };
+export const darkTheme = {
+    accent: "#0095f6",
+    borderColor: "rgb(219, 219, 219)",
+    bgColor: "rgb(38, 38, 38)",
+    fontColor: "#FAFAFA",
+};
 
 export const Row = styled.div`
     display: flex;
@@ -76,11 +82,11 @@ body {
     font-size: 14px;
     font-family:'Open Sans', sans-serif;
     color: ${(props) => props.theme.fontColor};
-    
 
 
     
 }
+
 
 a {
     text-decoration: none;

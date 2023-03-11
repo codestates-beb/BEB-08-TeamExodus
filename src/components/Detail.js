@@ -10,7 +10,7 @@ const ModalImageBackground = styled.div`
     width: 420px;
     height 420px;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
     border-radius: 10%;
     align-items: center;
     
@@ -22,7 +22,7 @@ const ModalImage = styled.img`
     width: 400px;
     height 400px;
     background-color: gray;
-    z-index: 1;
+    z-index: 2;
     border-radius: 10%;
 `;
 const Modal = styled.div`
@@ -34,7 +34,7 @@ const Modal = styled.div`
     background-color: white;
     border: 1px solid black;
     padding: 20px;
-    z-index: 0;
+    z-index: 1;
 `;
 
 const ModalContent = styled.div`
@@ -77,18 +77,28 @@ function Detail({ modalData, setModalVisible }) {
                 </CloseButton>
                 <ModalContent className="modal-content">
                     <Name>
-                        {modalData.name}
-                        <span style={{ margin: 15 }}>
-                            <FontAwesomeIcon
-                                icon={faCheckCircle}
-                                style={{ color: "#2081E2" }}
-                            />
-                        </span>
+                        {!modalData.title ? (
+                            <span style={{ margin: 15 }}>
+                                {modalData.name}
+                                <FontAwesomeIcon
+                                    icon={faCheckCircle}
+                                    style={{ color: "#2081E2" }}
+                                />
+                            </span>
+                        ) : (
+                            <div>
+                                Congratulations! 🎉
+                                <br /> You have successfully minted{" "}
+                                {modalData.title} NFT.
+                            </div>
+                        )}
 
                         <FontAwesomeIcon icon="check-square" />
                     </Name>
                     <Desc>
-                        <div>{modalData.current_price} ETH</div>
+                        {modalData.current_price && (
+                            <div>{modalData.current_price} ETH</div>
+                        )}
                         {modalData.description}
                     </Desc>
                 </ModalContent>

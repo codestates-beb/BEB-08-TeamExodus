@@ -14,28 +14,28 @@ import Test from "./pages/Test";
 import PageLayout from "./components/PageLayout";
 
 function App() {
-  return (
-    <HelmetProvider>
-      <ThemeProvider theme={lightTheme}>
-        <Helmet>
-          <title>Exodus, the next generation of NFT market</title>
-        </Helmet>
-        <GlobalStyles />
+    return (
+        <HelmetProvider>
+            <ThemeProvider theme={lightTheme}>
+                <Helmet>
+                    <title>Exodus, the next generation of NFT market</title>
+                </Helmet>
+                <GlobalStyles />
 
-        <Routes>
-          <Route element={<PageLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path={`/users/:username`} element={<MyPage />} />
-            <Route path="/market" element={<Market />} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/detail/:id" element={<Detail />} />
-          </Route>
-          <Route path="/test" element={<Test />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </ThemeProvider>
-    </HelmetProvider>
-  );
+                <Routes>
+                    <Route element={<PageLayout />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path={`/users/:username`} element={<MyPage />} />
+                        <Route path="/market" element={<Market />} />
+                        <Route path="/create" element={<Create />} />
+                        <Route path="/detail/:id" element={<Detail />} />
+                    </Route>
+                    <Route path="/test" element={<Test />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </ThemeProvider>
+        </HelmetProvider>
+    );
 }
 
 export default App;
