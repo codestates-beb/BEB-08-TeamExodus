@@ -4,9 +4,13 @@ import Web3 from "web3";
 import erc721abi from "../erc721abi";
 
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import Detail from "../components/Detail";
-
+const BlackBox = styled.div`
+    display: flex;
+    flex: 1;
+    background: linear-gradient(black, white);
+    height: 100px;
+`;
 const Container = styled.div`
     padding: 50px 200px;
     margin-top: 50px;
@@ -21,10 +25,11 @@ const Container = styled.div`
 const FormBox = styled.form`
     width: 600px;
     height: 100%;
-    background-color: beige;
+    // background-color: beige;
     padding: 15px 15px;
-    border: 3px solid black;
     border-radius: 20px;
+    border: 2px solid black;
+    // background: linear-gradient(to top, grey, #ffffff);
 `;
 
 const Title = styled.div`
@@ -57,7 +62,8 @@ const Input = styled.input`
 `;
 
 const MintBtn = styled(Input)`
-    background-color: #2081e2;
+    background-color: #708090;
+    color: #fafafa;
     font-weight: 600;
     :hover {
         cursor: pointer;
@@ -111,12 +117,7 @@ function Create() {
         const mint = await tokenContract.methods
             .mintNFT(userAddr, image_url, title, artist, description)
             .send({ from: userAddr })
-            .on("receipt", () => {
-                console.log("MINIT!!!");
-            });
-        const totalSupply = await tokenContract.methods.TotalSupply().call();
-        console.log("total", totalSupply);
-        console.log("민트: ", mint);
+            .on("receipt", () => {});
         setMintsuccess(true);
     };
 
@@ -127,8 +128,6 @@ function Create() {
             try {
                 const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
                 setWeb3(web);
-                console.log("set web");
-                console.log(web);
             } catch (err) {
                 console.log(err);
             }
@@ -136,49 +135,51 @@ function Create() {
     }, []);
 
     return (
-        <Container>
-            {mintsuccess && (
-                <Detail
-                    modalData={mintedNft}
-                    setModalVisible={setMintsuccess}
-                />
-            )}
+        <>
+            <BlackBox />
+            <Container>
+                {mintsuccess && (
+                    <Detail
+                        modalData={mintedNft}
+                        setModalVisible={setMintsuccess}
+                    />
+                )}
 
-            <FormBox onSubmit={handleSubmit(onSubmit)}>
-                <Title>Create New NFT</Title>
-                <InputBox>
-                    <Label> Title </Label>
-                    <Input
-                        placeholder="Title of your nft..."
-                        {...register("title", { required: true })}
-                    />
-                </InputBox>
-                <InputBox>
-                    <Label> Artist Name </Label>
-                    <Input
-                        placeholder="Creater of your nft..."
-                        {...register("artist", { required: true })}
-                    />
-                </InputBox>
-                <InputBox>
-                    <Label> Description </Label>
-                    <Input
-                        placeholder="Provide a detailed description of you item."
-                        {...register("description", { required: true })}
-                    />
-                </InputBox>
-                <InputBox>
-                    <Label>Image URI</Label>
-                    <Input
-                        placeholder="Copy your NFT Image URI..."
-                        {...register("image_url", { required: true })}
-                    />
-                </InputBox>
+                <FormBox onSubmit={handleSubmit(onSubmit)}>
+                    <Title>Create New NFT</Title>
+                    <InputBox>
+                        <Label> Title </Label>
+                        <Input
+                            placeholder="Title of your nft..."
+                            {...register("title", { required: true })}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <Label> Artist Name </Label>
+                        <Input
+                            placeholder="Creater of your nft..."
+                            {...register("artist", { required: true })}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <Label> Description </Label>
+                        <Input
+                            placeholder="Provide a detailed description of you item."
+                            {...register("description", { required: true })}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <Label>Image URI</Label>
+                        <Input
+                            placeholder="Copy your NFT Image URI..."
+                            {...register("image_url", { required: true })}
+                        />
+                    </InputBox>
 
-                <MintBtn type="submit" value={"Mint"} />
-                <button onClick={() => setMintsuccess(true)}>자동 성공</button>
-            </FormBox>
-        </Container>
+                    <MintBtn type="submit" value={"Mint"} />
+                </FormBox>
+            </Container>
+        </>
     );
 }
 

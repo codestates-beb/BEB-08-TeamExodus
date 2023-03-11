@@ -8,9 +8,7 @@ import Home from "./pages/Home";
 import Create from "./pages/Create";
 import Market from "./pages/Market";
 import MyPage from "./pages/MyPage";
-import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
-import Test from "./pages/Test";
 import PageLayout from "./components/PageLayout";
 
 function App() {
@@ -28,9 +26,7 @@ function App() {
                         <Route path={`/users/:username`} element={<MyPage />} />
                         <Route path="/market" element={<Market />} />
                         <Route path="/create" element={<Create />} />
-                        <Route path="/detail/:id" element={<Detail />} />
                     </Route>
-                    <Route path="/test" element={<Test />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </ThemeProvider>

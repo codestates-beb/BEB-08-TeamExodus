@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
-import { Col, LoadingContainer, override, RowPic } from "../styles";
+import { Col, LoadingContainer, override } from "../styles";
 import Detail from "../components/Detail";
 import PulseLoader from "react-spinners/PulseLoader";
 import { NftImg, NftBox, ColLists, NftName } from "./Market";
@@ -196,7 +196,6 @@ function Home() {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalData, setModalData] = useState("");
     const handleNftClicked = (nft) => {
-        console.log(nft);
         setModalVisible(true);
         setModalData(nft);
     };

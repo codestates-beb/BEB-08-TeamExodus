@@ -18,8 +18,8 @@ export const Col = styled.div`
 `;
 
 export const LoadingContainer = styled(Col)`
-    margin-left: 400px;
-    margin-bottom: 500px;
+    margin-left: 300px;
+    margin-bottom: 400px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -77,6 +77,36 @@ input {
 }
 
 body {
+    
+    background-color: ${(props) => props.theme.bgColor};
+    font-size: 14px;
+    font-family:'Open Sans', sans-serif;
+
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+`;
+
+export const GlobalStyles2 = createGlobalStyle`
+${reset}
+
+
+
+input {
+    all: unset;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.header {
     
     background-color: ${(props) => props.theme.bgColor};
     font-size: 14px;

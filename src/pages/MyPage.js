@@ -3,14 +3,24 @@ import backImageSrc from "../img/jesus.jpg";
 import { faLink, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
-import { Row, RowName, RowPic, RowPics } from "../styles";
+import {
+    LoadingContainer,
+    Row,
+    RowName,
+    RowPic,
+    RowPics,
+    override,
+} from "../styles";
 import Web3 from "web3";
 import erc721abi from "../erc721abi";
 import { NftImg, NftName } from "./Market";
+import PulseLoader from "react-spinners/PulseLoader";
+import Detail from "../components/Detail";
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    padding-bottom: 200px;
 `;
 
 const BackImage = styled.img`
@@ -54,6 +64,7 @@ const Icon = styled.span`
 function MyPage() {
     const [web3, setWeb3] = useState(new Web3(window.ethereum));
     const [nftList, setNftList] = useState([]);
+    const [loading, setLoading] = useState(true);
     let contractAddr = "0x0DcF7226741313910935048A5ddAF110c6146526";
 
     const userAddr = localStorage.getItem("isLoggedIn");
@@ -64,29 +75,22 @@ function MyPage() {
       try {
         const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
         setWeb3(web);
-        console.log("set web", web);
 
         getNftsByUser();
-        console.log("why");
       } catch (err) {
-        console.log(err);
       }
     } */
         getNftsByUser();
+        setLoading(false);
     }, []);
 
     const getNftsByUser = async () => {
-        console.log("hi");
         const tokenContract = await new web3.eth.Contract(
             erc721abi,
             contractAddr
         );
-        console.log(tokenContract);
-
-        console.log("Contract", tokenContract);
 
         const totalSupply = await tokenContract.methods.TotalSupply().call();
-        console.log("totalSupply", totalSupply);
 
         let temp = [];
         for (let i = 1; i <= totalSupply - 1; i++) {
@@ -94,9 +98,17 @@ function MyPage() {
             temp.push(nftinfo);
         }
 
-        console.log("제발 왜");
         setNftList(temp);
-        console.log("nftList", temp);
+    };
+
+    // 모달 창
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalData, setModalData] = useState("");
+    const handleNftClicked = (nft) => {
+        const { name, description, tokenURI: image_url } = nft;
+        const nft2 = { name, description, image_url };
+        setModalVisible(true);
+        setModalData(nft2);
     };
 
     return (
@@ -120,15 +132,40 @@ function MyPage() {
             </Profile>
             <Row>
                 <RowName>My Own NFTs</RowName>
-                <RowPics>
-                    {nftList?.map((i) => (
-                        <RowPic key={i} style={{ backgroundColor: "beige" }}>
-                            <NftImg src={i.tokenURI} />
-                            <NftName>{i.title}</NftName>
-                        </RowPic>
-                    ))}
-                </RowPics>
+                {loading ? (
+                    <LoadingContainer>
+                        <PulseLoader
+                            color={"#36d7b7"}
+                            loading={loading}
+                            cssOverride={override}
+                            style={{ marginTop: "150px" }}
+                            size={50}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                            speedMultiplier={1}
+                        />
+                    </LoadingContainer>
+                ) : (
+                    <RowPics>
+                        {nftList?.map((i, idx) => (
+                            <RowPic
+                                key={idx}
+                                style={{ backgroundColor: "beige" }}
+                                onClick={() => handleNftClicked(i)}
+                            >
+                                <NftImg src={i.tokenURI} />
+                                <NftName>{i.title}</NftName>
+                            </RowPic>
+                        ))}
+                    </RowPics>
+                )}
             </Row>
+            {modalVisible && (
+                <Detail
+                    modalData={modalData}
+                    setModalVisible={setModalVisible}
+                />
+            )}
         </Container>
     );
 }

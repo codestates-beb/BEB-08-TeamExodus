@@ -1,5 +1,5 @@
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { faClose, faBadgeCheck } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 const ModalImageBackground = styled.div`

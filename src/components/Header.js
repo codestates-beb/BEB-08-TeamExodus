@@ -11,7 +11,7 @@ import { useAnimation, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Web3 from "web3";
-import { darkTheme, GlobalStyles, lightTheme } from "../styles";
+import { darkTheme, GlobalStyles2, lightTheme } from "../styles";
 
 const SHeader = styled(motion.div)`
     z-index: 5;
@@ -102,7 +102,7 @@ const SearchBar = styled.input`
 `;
 
 const WalletBtn = styled.div`
-    // background-color: black;
+    background-color: black;
     font-weight: 600;
     font-size: 15px;
     color: white;
@@ -156,7 +156,6 @@ function Header() {
                 method: "eth_requestAccounts",
             })
             .then((res) => {
-                console.log("res: ", res);
                 setAccount(res[0]);
                 setIsLoggedIn(true);
                 localStorage.setItem("isLoggedIn", res[0]);
@@ -171,8 +170,9 @@ function Header() {
     };
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-            <GlobalStyles />
+            <GlobalStyles2 />
             <SHeader
+                className="header"
                 variants={navVariants}
                 animate={headerAnimation}
                 initial={"top"}
