@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Row, RowName, RowPic, RowPics } from "../styles";
 import Web3 from "web3";
 import erc721abi from "../erc721abi";
+import { NftImg, NftName } from "./Market";
 
 const Container = styled.div`
   display: flex;
@@ -51,13 +52,14 @@ const Icon = styled.span`
 `;
 
 function MyPage() {
-  const [web3, setWeb3] = useState();
+  const [web3, setWeb3] = useState(new Web3(window.ethereum));
   const [nftList, setNftList] = useState([]);
-  let contractAddr = "0xc08F3536a11A72bcD25CbBc25192C4981C4E3E65";
+  let contractAddr = "0x0DcF7226741313910935048A5ddAF110c6146526";
+
   const userAddr = localStorage.getItem("isLoggedIn");
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
+    /*     if (typeof window.ethereum !== "undefined") {
       // window.ethereum이 있다면
       try {
         const web = new Web3(window.ethereum); // 새로운 web3 객체를 만든다
@@ -69,35 +71,29 @@ function MyPage() {
       } catch (err) {
         console.log(err);
       }
-    }
+    } */
+    getNftsByUser();
   }, []);
 
   const getNftsByUser = async () => {
     console.log("hi");
     const tokenContract = await new web3.eth.Contract(erc721abi, contractAddr);
-    console.log("tlqkds");
     console.log(tokenContract);
-    console.log("hi");
+
     console.log("Contract", tokenContract);
 
     const totalSupply = await tokenContract.methods.TotalSupply().call();
     console.log("totalSupply", totalSupply);
+
     let temp = [];
-
-    for (let i = 1; i <= totalSupply; i++) {
-      const nftinfo = await tokenContract.methods.getDescription(i).call();
+    for (let i = 1; i <= totalSupply - 1; i++) {
+      const nftinfo = await tokenContract.methods.nftinfo(i).call();
       temp.push(nftinfo);
-
-      /*         if(userAddr == getIssuer) {
-            const tokenURI = await tokenContract.methods.tokenURI(i).call();
-            const tokenURI = await tokenContract.methods.tokenURI(i).call();
-            
-
-        } */
     }
+
     console.log("제발 왜");
     setNftList(temp);
-    console.log("nftList", nftList);
+    console.log("nftList", temp);
   };
 
   return (
@@ -118,20 +114,14 @@ function MyPage() {
       <Row>
         <RowName>My Own NFTs</RowName>
         <RowPics>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <RowPic key={i} />
+          {nftList?.map((i) => (
+            <RowPic key={i} style={{ backgroundColor: "beige" }}>
+              <NftImg src={i.tokenURI} />
+              <NftName>{i.title}</NftName>
+            </RowPic>
           ))}
         </RowPics>
       </Row>
-      <Row>
-        <RowName>My Minted NFTs</RowName>
-        <RowPics>
-          {[1, 2, 3, 4, 5].map((i) => (
-            <RowPic key={i} />
-          ))}
-        </RowPics>
-      </Row>
-      <div onClick={getNftsByUser}>fwejifoqjwefiwaejfaipoefj</div>
     </Container>
   );
 }
