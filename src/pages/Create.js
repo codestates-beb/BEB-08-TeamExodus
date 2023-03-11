@@ -91,7 +91,7 @@ function Create() {
     const [mintedNft, setMintedNft] = useState();
     const [mintsuccess, setMintsuccess] = useState(false);
 
-    let contractAddr = "0xc08F3536a11A72bcD25CbBc25192C4981C4E3E65";
+    let contractAddr = "0x0DcF7226741313910935048A5ddAF110c6146526";
     const userAddr = localStorage.getItem("isLoggedIn");
 
     const {
