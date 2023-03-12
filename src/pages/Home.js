@@ -208,7 +208,6 @@ function Home() {
                 </WelcomeWords>
                 <ImageContainer />
             </Wallpaper>
-            aaaaaaaaaaaaaaaaaaaa
             {/* <Slider onClick={increaseIndex}>
                 <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                     <Row
