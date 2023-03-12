@@ -28,14 +28,35 @@
 
 #  Role
 Jihwankim255
-- 프론트 기획,디자인:상세 페이지, 페이지네이션, 푸터
-
+<details>
+ <summary>프론트</summary>
+ - Home: 월페이퍼, 푸터, 페이지네이션, 상세 페이지
+ - Mypage: 상세 페이지
+ - Market: 상세 페이지
+ - Create: 민팅 완료 페이지
+</details>
+<details>
+ <summary>프론트 기획</summary>
+  - 페이지네이션: 페이지 별 NFT수, 최대 페이지,prev,next 버튼
+  - 상세 페이지: 데이터 모델링,
+ 
+</details>
+ 
 DreamBoysYJ
-- 프론트 디자인: 헤더, 로딩, 마켓
-- 컨트랙트: 배포, 민팅, 보유NFT
-
-
-
+<details>
+ <summary>프론트</summary>
+ - 라우팅
+ - Home: 헤더, 로딩
+ - Mypage: 배경 이미지
+ - Market: 사이드바, 카테고리, 로딩
+ - Create: 민팅 폼
+</details>
+<details>
+<summary>컨트랙트</summary>
+ - 컨트랙트 배포:
+ - 민팅: 
+ - 보유 NFT: 
+</details>
 
 
 <a href="#">![footer](https://capsule-render.vercel.app/api?type=waving&color=F8E2CF&height=160&section=footer&fontSize=90)</a>
