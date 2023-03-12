@@ -1,6 +1,8 @@
-<a href="#"><img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white"></a>
- <a href="#"><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=Solidity&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=Remix&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Web3.js-F16822?style=for-the-badge&logo=Web3.js&logoColor=white"></a>
-<a href="#"><img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/></a> 
+<picture>![header](https://capsule-render.vercel.app/api?type=waving&color=F8E2CF&height=200&animation=fadeIn&section=header&text=Team%20Exodus&fontSize=90)</picture>
+
+<picture><img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white"></picture>
+ <picture><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"></picture> <picture><img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=Solidity&logoColor=white"></picture> <picture><img src="https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=Remix&logoColor=white"></picture> <picture><img src="https://img.shields.io/badge/Web3.js-F16822?style=for-the-badge&logo=Web3.js&logoColor=white"></picture>
+<picture><img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/></picture> 
  
 # :two_men_holding_hands:Team Exodus
 <table>
