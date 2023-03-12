@@ -10,14 +10,14 @@
     <td>역할</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/jihwankim255"><img src="https://github.com/jihwankim255.png" alt="Contributor Name" width="25" style="border-radius: 50%" /></a></td>
+    <td align="center"><a href="https://github.com/jihwankim255"><img src="https://github.com/jihwankim255.png" alt="Contributor Name" width="25" style="border-radius: 50%" /></a></td>
     <td>Jihwankim255</td>
-    <td>프론트 기획,디자인:상세 페이지,페이지네이션,푸터</td>
+    <td>프론트, 기획, 기능</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/DreamBoysYJ"><img src="https://github.com/DreamBoysYJ.png" alt="Contributor Name" width="25" style="border-radius: 50%" /></a></td>
+    <td align="center"><a href="https://github.com/DreamBoysYJ"><img src="https://github.com/DreamBoysYJ.png" alt="Contributor Name" width="25" style="border-radius: 50%" /></a></td>
     <td>DreamBoysYJ</td>
-    <td>프론트 디자인:헤더,로딩,마켓<br>컨트랙트:배포,민팅,보유NFT</td>
+    <td>프론트, 기획, 컨트랙트</td>
   </tr>
   <tr>
     <td></td>
@@ -26,9 +26,13 @@
   </tr>
 </table>
 
+#  Role
+Jihwankim255
+- 프론트 기획,디자인:상세 페이지, 페이지네이션, 푸터
 
-
-
+DreamBoysYJ
+- 프론트 디자인: 헤더, 로딩, 마켓
+- 컨트랙트: 배포, 민팅, 보유NFT
 
 
 
