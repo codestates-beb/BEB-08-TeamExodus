@@ -1,5 +1,4 @@
-<a href="#">![header](https://capsule-render.vercel.app/api?type=waving&color=F8E2CF&height=200&animation=fadeIn&section=header&text=Team%20Exodus&fontSize=90)</a>
-<a href="#"><img src="https://img.shields.io/badge/Html5-E34F26?style=for-the-badge&logo=Html5&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Css3-1572B6?style=for-the-badge&logo=Css3&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white"></a>
+<img src="https://img.shields.io/badge/Css3-1572B6?style=for-the-badge&logo=Css3&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white"></a>
  <a href="#"><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=Solidity&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=Remix&logoColor=white"></a> <a href="#"><img src="https://img.shields.io/badge/Web3.js-F16822?style=for-the-badge&logo=Web3.js&logoColor=white"></a>
 <a href="#"><img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/></a> 
  
