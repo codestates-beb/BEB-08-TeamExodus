@@ -24,7 +24,7 @@
   <tr>
     <td></td>
     <td>이구범</td>
-    <td></td>
+    <td>스마트 컨트랙트</td>
   </tr>
 </table>
 
